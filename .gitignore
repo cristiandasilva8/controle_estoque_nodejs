@@ -1,0 +1,40 @@
+# Dependências
+/node_modules
+
+# Arquivos de log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Diretórios de ambiente de desenvolvimento
+/.pnp
+.pnp.js
+
+# Sistema de arquivos
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração do editor
+.vscode/
+*.swp
+*.swo
+.idea/
+*.sublime-workspace
+
+# Arquivos de build
+/dist
+/build
+
+# Arquivos de cache do npm & yarn
+.npm
+.yarn
+
+# Arquivos de cache do OS X
+.DS_Store
+
+# Arquivos de chave privada
+*.pem
+
+# Arquivo .env
+.env
+.env.local

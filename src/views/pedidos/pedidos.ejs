@@ -1,0 +1,104 @@
+<%- include('../partials/header') %>
+    <%- include('../partials/menu') %>
+
+        <div class="mb-4">
+            <h1>Lista de Pedidos</h1>
+            <a href="/criar-pedido" type="button" class="btn btn-outline-success">Cadastrar</a>
+        </div>
+        <% if (message) { %>
+            <div class="alert alert-success">
+                <%= message %>
+            </div>
+            <% } %>
+                <form id="filtroPedidos">
+                    <div class="mb-3">
+                        <label for="dataInicio" class="form-label">Data Início</label>
+                        <input type="date" class="form-control" id="dataInicio" name="dataInicio">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dataFim" class="form-label">Data Fim</label>
+                        <input type="date" class="form-control" id="dataFim" name="dataFim">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipo" class="form-label">Tipo</label>
+                        <select class="form-select" id="tipo" name="tipo">
+                            <option value="">Todos</option>
+                            <option value="entrada">Entrada</option>
+                            <option value="saida">Saída</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </form>
+
+                <div id="listaPedidos">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#ID</th>
+                                <th scope="col">Produto ID</th>
+                                <th scope="col">Quantidade</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Nome do Cliente</th>
+                                <th scope="col">Data da Operação</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% pedidos.forEach(pedido=> { %>
+                                <tr>
+                                    <td>
+                                        <%= pedido.id %>
+                                    </td>
+                                    <td>
+                                        <%= pedido.produto.nome %>
+                                    </td>
+                                    <td>
+                                        <%= pedido.quantidade %>
+                                    </td>
+                                    <td>
+                                        <%= pedido.tipo %>
+                                    </td>
+                                    <td>
+                                        <%= pedido.cliente_fornecedor ? pedido.cliente_fornecedor.nome : 'N/A' %>
+
+                                    </td>
+                                    <td>
+                                        <%= new Date(pedido.data_operacao).toLocaleDateString('pt-BR', { year: 'numeric'
+                                            , month: 'long' , day: 'numeric' }) %>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-danger btn-excluir"
+                                            data-id="<%= pedido.id %>">Excluir</button>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                <%- include('../partials/footer') %>
+
+                    <script>
+                        document.querySelectorAll('.btn-excluir').forEach(button => {
+                            button.addEventListener('click', function () {
+                                const pedidoId = this.getAttribute('data-id');
+
+                                if (confirm('Tem certeza que deseja excluir este pedido?')) {
+                                    fetch(`/pedidos/${pedidoId}`, {
+                                        method: 'DELETE',
+                                    })
+                                        .then(response => response.json()) // Processa a resposta JSON
+                                        .then(data => {
+                                            if (data.success) {
+                                                alert(data.message);
+                                                window.location.reload(); // Recarrega a página para atualizar a lista de pedido
+                                            } else {
+                                                // Caso de erro ou pedido não encontrado
+                                                alert(data.message);
+                                            }
+                                        })
+                                        .catch(error => console.error('Erro ao excluir o pedido:', error));
+                                }
+                            });
+                        });
+
+                    </script>

@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+
+    <%- include('../partials/menu') %>
+        <h1>Cadastrar Novo Produto</h1>
+        <form id="formCadastroProduto" action="/cadastro-produto" method="POST">
+
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome do Produto</label>
+                <input type="text" class="form-control" id="nome" name="nome" />
+            </div>
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="quantidade_de_estoque" class="form-label">Quantidade inicial de estoque</label>
+                <input type="text" class="form-control" id="quantidade_de_estoque" name="quantidade_de_estoque"
+                    value="0" />
+            </div>
+            <div class="mb-3">
+                <label for="limite_estoque_baixo" class="form-label">Limite do estoque baixo</label>
+                <input type="number" class="form-control" id="limite_estoque_baixo" name="limite_estoque_baixo"
+                    value="0" />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">R$</span>
+                <input type="number" class="form-control" id="preco" name="preco">
+            </div>
+            <button type="submit">Cadastrar Produto</button>
+        </form>
+        <%- include('../partials/footer') %>

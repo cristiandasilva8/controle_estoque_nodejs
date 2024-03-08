@@ -1,0 +1,26 @@
+<%- include('../partials/header') %>
+
+    <%- include('../partials/menu') %>
+        <h1>Cadastrar Novo Cliente/Fornecedor</h1>
+        <form id="formCadastroCliente" action="/cadastro-cliente-fornecedor" method="POST">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" required />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">CPF/CNPJ</span>
+                <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="tipo" class="form-label">Tipo</label>
+                <select class="form-select" id="tipo" name="tipo" required>
+                    <option value="">Selecione...</option>
+                    <option value="C">Cliente</option>
+                    <option value="F">Fornecedor</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Cadastrar Cliente/Fornecedor</button>
+        </form>
+        <%- include('../partials/footer') %>

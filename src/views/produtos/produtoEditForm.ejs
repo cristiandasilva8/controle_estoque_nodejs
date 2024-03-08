@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+
+    <%- include('../partials/menu') %>
+
+        <% if (produto) { %>
+            <form action="/editar-produto/<%= produto.id %>" method="post">
+                <input type="hidden" name="_method" value="PUT">
+                <!-- Campos preenchidos com dados do produto para edição -->
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome do Produto</label>
+                    <input type="text" class="form-control" id="nome" name="nome" value="<%= produto.nome %>" />
+                </div>
+                <div class="mb-3">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descricao" name="descricao"
+                        rows="3"><%= produto.descricao %></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="quantidade_de_estoque" class="form-label">Quantidade inicial de estoque</label>
+                    <input type="text" class="form-control" id="quantidade_de_estoque" name="quantidade_de_estoque"
+                        value="<%= produto.quantidade_de_estoque %>" />
+                </div>
+                <div class="mb-3">
+                    <label for="limite_estoque_baixo" class="form-label">Limite do estoque baixo</label>
+                    <input type="number" class="form-control" id="limite_estoque_baixo" name="limite_estoque_baixo"
+                        value="<%= produto.limite_estoque_baixo %>" />
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">R$</span>
+                    <input type="number" class="form-control" id="preco" name="preco" value="<%= produto.preco %>" />
+                </div>
+                <button type="submit" class="btn btn-outline-primary">Atualizar Produto</button>
+            </form>
+            <% } %>
+
+                <%- include('../partials/footer') %>

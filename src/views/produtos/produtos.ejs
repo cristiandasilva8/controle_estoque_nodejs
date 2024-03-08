@@ -1,0 +1,81 @@
+<%- include('../partials/header') %>
+
+    <%- include('../partials/menu') %>
+        <div class="mb-4">
+            <h1>Lista de Produtos</h1>
+            <a href="/cadastro-produto" type="button" class="btn btn-outline-success">Cadastrar</a>
+        </div>
+        <% if (message) { %>
+            <div class="alert alert-success">
+                <%= message %>
+            </div>
+            <% } %>
+                <ul>
+                    <% if (typeof produtos !=='undefined' && produtos) { %>
+                        <table class="table">
+                            <thead class="table-light">
+                                <th scope="col">#</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Quantidade em Estoque</th>
+                                <th scope="col">Ações</th>
+                            </thead>
+
+                            <tbody></tbody>
+                            <% produtos.forEach(produto=> { %>
+                                <tr
+                                    class="<%= produto.quantidade_de_estoque <= produto.limite_estoque_baixo ? 'table-danger' : '' %>">
+                                    <th scope="row">
+                                        <%= produto.id %>
+                                    </th>
+                                    <td>
+                                        <%= produto.nome %>
+                                    </td>
+                                    <td>R$ <%= !isNaN(parseFloat(produto.preco)) ? parseFloat(produto.preco).toFixed(2)
+                                            : 'Preço inválido' %>
+                                    </td>
+                                    <td>
+                                        <%= produto.quantidade_de_estoque %>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-danger btn-excluir"
+                                            data-id="<%= produto.id %>">Excluir</button>
+                                        <a href="/produto/<%= produto.id %>" type="button"
+                                            class="btn btn-outline-primary" style="margin-left: 10px;">Editar</a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+
+                                    </tbody>
+                        </table>
+                        <% } else { %>
+                            <p>Nenhum produto encontrado.</p>
+                            <% } %>
+                </ul>
+                <%- include('../partials/footer') %>
+
+                    <script>
+                        document.querySelectorAll('.btn-excluir').forEach(button => {
+                            button.addEventListener('click', function () {
+                                const produtoId = this.getAttribute('data-id');
+
+                                if (confirm('Tem certeza que deseja excluir este produto?')) {
+                                    fetch(`/produto/${produtoId}`, {
+                                        method: 'DELETE',
+                                    })
+                                        .then(response => response.json()) // Processa a resposta JSON
+                                        .then(data => {
+                                            if (data.success) {
+                                                alert(data.message);
+                                                window.location.reload(); // Recarrega a página para atualizar a lista de produto
+                                            } else {
+                                                // Caso de erro ou produto não encontrado
+                                                alert(data.message);
+                                            }
+                                        })
+                                        .catch(error => console.error('Erro ao excluir o produto:', error));
+                                }
+                            });
+                        });
+
+                    </script>

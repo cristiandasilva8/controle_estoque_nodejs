@@ -1,0 +1,77 @@
+<%- include('../partials/header') %>
+
+    <%- include('../partials/menu') %>
+        <div class="mb-4">
+            <h1>Lista de Clientes/Fornecedores</h1>
+            <a href="/cadastro-cliente-fornecedor" type="button" class="btn btn-outline-success">Cadastrar</a>
+        </div>
+        <% if (message) { %>
+            <div class="alert alert-success">
+                <%= message %>
+            </div>
+            <% } %>
+                <ul>
+                    <% if (typeof clientesFornecedores !=='undefined' && clientesFornecedores) { %>
+                        <table class="table">
+                            <thead class="table-light">
+                                <th scope="col">#</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">CPF/CNPJ</th>
+                                <th scope="col">Ações</th>
+                            </thead>
+                            <tbody></tbody>
+                            <% clientesFornecedores.forEach(clienteFornecedor=> { %>
+                                <tr>
+                                    <th scope="row">
+                                        <%= clienteFornecedor.id %>
+                                    </th>
+                                    <td>
+                                        <%= clienteFornecedor.nome %>
+                                    </td>
+                                    <td>
+                                        <%= clienteFornecedor.cpf_cnpj %>
+                                    </td>
+
+                                    <td>
+                                        <button type="button" class="btn btn-outline-danger btn-excluir"
+                                            data-id="<%= clienteFornecedor.id %>">Excluir</button>
+
+                                        </li>
+                                        <a href="/cliente-fornecedor/<%= clienteFornecedor.id %>" type="button"
+                                            class="btn btn-outline-primary" style="margin-left: 10px;">Editar</a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                                    </tbody>
+                        </table>
+                        <% } else { %>
+                            <p>Nenhum produto encontrado.</p>
+                            <% } %>
+                </ul>
+                <%- include('../partials/footer') %>
+
+                    <script>
+                        document.querySelectorAll('.btn-excluir').forEach(button => {
+                            button.addEventListener('click', function () {
+                                const clienteFornecedorId = this.getAttribute('data-id');
+
+                                if (confirm('Tem certeza que deseja excluir este cliente?')) {
+                                    fetch(`/cliente-fornecedor/${clienteFornecedorId}`, {
+                                        method: 'DELETE',
+                                    })
+                                        .then(response => response.json()) // Processa a resposta JSON
+                                        .then(data => {
+                                            if (data.success) {
+                                                alert(data.message);
+                                                window.location.reload(); // Recarrega a página para atualizar a lista de clientes/fornecedores
+                                            } else {
+                                                // Caso de erro ou cliente não encontrado
+                                                alert(data.message);
+                                            }
+                                        })
+                                        .catch(error => console.error('Erro ao excluir o cliente:', error));
+                                }
+                            });
+                        });
+
+                    </script>
