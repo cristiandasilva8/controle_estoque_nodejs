@@ -1,70 +1,47 @@
 # Sistema de Controle de Estoque Simples
 
-Este é um sistema de controle de estoque simples desenvolvido com Node.js, Express.js e PostgreSQL. O sistema inclui módulos para criação de usuários, CRUD de produtos, clientes fornecedores, e controle de entrada e saída de produtos por pedido.
+Este é um sistema de controle de estoque desenvolvido como uma ferramenta educacional para ensinar alunos do SENAC. O sistema oferece funcionalidades básicas necessárias para a gestão de estoque, incluindo módulos para criação de usuário, operações CRUD de produtos, clientes e fornecedores, assim como registro de entrada e saída de produtos.
 
-## Tecnologias Utilizadas
+## Tecnologias e Bibliotecas
 
-- Node.js
-- Express.js
-- PostgreSQL
-- Sequelize
+Este projeto foi construído usando Node.js e as seguintes bibliotecas:
 
-## Dependências
+- bcrypt: Utilizada para hash de senhas.
+- bcryptjs: Uma versão JS do bcrypt para hashing de senha.
+- cookie-parser: Middleware para parsear cookies.
+- ejs: Motor de template para gerar HTML com JavaScript.
+- express: Framework para aplicativos web.
+- express-session: Middleware de sessão para Express.
+- jsonwebtoken: Implementação de JSON Web Tokens.
+- method-override: Permite o uso de verbos HTTP como PUT ou DELETE.
+- pg: Cliente PostgreSQL para Node.js.
+- pg-hstore: Serializador e desserializador para JSON com armazenamento hstore do PostgreSQL.
+- sequelize: ORM para Node.js baseado em promessas.
 
-- bcrypt
-- bcryptjs
-- cookie-parser
-- ejs
-- express
-- express-session
-- jsonwebtoken
-- method-override
-- pg
-- pg-hstore
-- sequelize
+O banco de dados é PostgreSQL.
 
-## Configuração do Projeto
+## Estrutura do Projeto
 
-### Requisitos
+O código fonte está dentro da pasta `src`, que inclui:
 
-- Node.js instalado na máquina
-- PostgreSQL instalado na máquina
+- `config`: Configurações de conexão com o banco de dados e outras variáveis globais.
+- `controllers`: Lógica de controle entre o modelo e as views.
+- `models`: Modelos representando as tabelas do banco de dados usando Sequelize.
+- `routes`: Definição das rotas do aplicativo e seus middlewares.
+- `views`: Templates EJS que são renderizados e enviados como HTML.
 
-### Instalação
+## Inicialização
 
-1. Clone este repositório para a sua máquina local.
-   ```bash
-   git clone https://github.com/seu-usuario/sistema-controle-estoque.git
-   ```
+Para colocar o projeto em funcionamento, siga estes passos:
 
-2. Navegue até o diretório do projeto.
-   ```bash
-   cd sistema-controle-estoque
-   ```
+1. Clone o repositório em sua máquina.
+2. Instale as dependências com `npm install`.
+3. Crie o banco de dados no PostgreSQL e execute os scripts SQL encontrados na pasta `db`.
+4. Configure o arquivo na pasta `config` com suas variáveis de ambiente.
+5. Inicie o servidor de desenvolvimento com `npm run dev` (assumindo que você tem o Nodemon instalado).
 
-3. Instale as dependências do projeto.
-   ```bash
-   npm install
-   ```
-
-4. Configure o banco de dados PostgreSQL de acordo com suas credenciais no arquivo `config/database.js`.
-
-5. Execute as migrações do Sequelize para criar as tabelas no banco de dados.
-   ```bash
-   npx sequelize-cli db:migrate
-   ```
-
-6. Inicie o servidor.
-   ```bash
-   npm start
-   ```
-
-7. Acesse o sistema através do seu navegador em [http://localhost:3000](http://localhost:3000).
+Lembre-se de configurar o arquivo `.env` na raiz do projeto com as variáveis necessárias para o banco de dados e autenticação.
 
 ## Contribuição
 
-Este projeto foi desenvolvido para fins educativos e de estudos próprios, além de servir como material didático para alunos do SENAC. Contribuições são bem-vindas. Sinta-se à vontade para abrir um issue ou enviar um pull request.
-
-## Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
+Este projeto é aberto para quem deseja contribuir. Se você está aprendendo a codificar, sinta-se à vontade para usar este projeto como uma base de estudo.
